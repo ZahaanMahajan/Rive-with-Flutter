@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081921463389",
+    "project_id": "fir-auth-3f461",
+    "storage_bucket": "fir-auth-3f461.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081921463389:android:c4b00ab36e125268bb99b4",
+        "android_client_info": {
+          "package_name": "com.example.rive_animation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081921463389-v33so5m8vghdms5qtak9niu43n7bh57o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_iYkfcNnHejNpJeJC9c5LRWummR1k5X0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081921463389-v33so5m8vghdms5qtak9niu43n7bh57o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
