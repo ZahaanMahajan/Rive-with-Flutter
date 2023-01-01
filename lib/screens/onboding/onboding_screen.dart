@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:rive_animation/screens/components/animated_btn.dart';
-
 import '../components/custom_sign_in_dialog.dart';
 
 class OnboardingScreen extends StatefulWidget {
