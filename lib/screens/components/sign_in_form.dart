@@ -179,7 +179,7 @@ class _SignInFormState extends State<SignInForm> {
             : const SizedBox(),
         isShowConfetti
             ? CustomPositioned(
-                scale: 6,
+                scale: 7,
                 child: RiveAnimation.asset(
                   "assets/RiveAssets/confetti.riv",
                   onInit: _onConfettiRiveInit,
