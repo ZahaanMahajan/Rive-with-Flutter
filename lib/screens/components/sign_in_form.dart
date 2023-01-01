@@ -16,75 +16,69 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  // Future signIn() async {
-  //   // showDialog(
-  //   //   context: context,
-  //   //   builder: (context) {
-  //   //     return Center(
-  //   //       child: CircularProgressIndicator(),
-  //   //     );
-  //   //   },
-  //   // );
-
-  //   await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //     email: _emailController.text.trim(),
-  //     password: _passwordController.text.trim(),
-  //   );
-
-  //   // Navigator.of(context).pop();
-  // }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   bool isShowLoading = false;
   bool isShowConfetti = false;
-
-  late SMITrigger check;
   late SMITrigger error;
+  late SMITrigger success;
   late SMITrigger reset;
+
   late SMITrigger confetti;
 
-  StateMachineController getRiveController(Artboard artboard) {
+  void _onCheckRiveInit(Artboard artboard) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, 'State Machine 1');
+
+    artboard.addController(controller!);
+    error = controller.findInput<bool>('Error') as SMITrigger;
+    success = controller.findInput<bool>('Check') as SMITrigger;
+    reset = controller.findInput<bool>('Reset') as SMITrigger;
+  }
+
+  void _onConfettiRiveInit(Artboard artboard) {
     StateMachineController? controller =
         StateMachineController.fromArtboard(artboard, "State Machine 1");
     artboard.addController(controller!);
-    return controller;
+
+    confetti = controller.findInput<bool>("Trigger explosion") as SMITrigger;
   }
 
-  void signIn(BuildContext context) {
+  void singIn(BuildContext context) {
+    // confetti.fire();
     setState(() {
-      isShowLoading = true;
       isShowConfetti = true;
+      isShowLoading = true;
     });
     Future.delayed(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       () {
         if (_formKey.currentState!.validate()) {
-          check.fire();
+          success.fire();
           Future.delayed(
-            Duration(seconds: 2),
+            const Duration(seconds: 2),
             () {
               setState(() {
                 isShowLoading = false;
               });
-              setState(() {
-                isShowConfetti = true;
-              });
               confetti.fire();
+              // Navigate & hide confetti
+              Future.delayed(
+                const Duration(seconds: 1),
+                () {},
+              );
             },
           );
         } else {
           error.fire();
-          Future.delayed(Duration(seconds: 2), () {
-            setState(
-              () {
+          Future.delayed(
+            const Duration(seconds: 2),
+            () {
+              setState(() {
                 isShowLoading = false;
-              },
-            );
-          });
+              });
+              reset.fire();
+            },
+          );
         }
       },
     );
@@ -99,9 +93,11 @@ class _SignInFormState extends State<SignInForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "E-mail",
-                style: TextStyle(color: Colors.grey[700]),
+              const Text(
+                "Email",
+                style: TextStyle(
+                  color: Colors.black54,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
@@ -112,10 +108,6 @@ class _SignInFormState extends State<SignInForm> {
                     }
                     return null;
                   },
-                  onSaved: (email) {
-                    if (_formKey.currentState!.validate()) {}
-                  },
-                  controller: _emailController,
                   decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -124,22 +116,22 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 "Password",
-                style: TextStyle(color: Colors.grey[700]),
+                style: TextStyle(
+                  color: Colors.black54,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
                 child: TextFormField(
+                  obscureText: true,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "";
                     }
                     return null;
                   },
-                  onSaved: (password) {},
-                  controller: _passwordController,
-                  obscureText: true,
                   decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -152,25 +144,25 @@ class _SignInFormState extends State<SignInForm> {
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    signIn(context);
+                    singIn(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF77D8E),
-                    minimumSize: Size(double.infinity, 56),
-                    shape: RoundedRectangleBorder(
+                    backgroundColor: const Color(0xFFF77D8E),
+                    minimumSize: const Size(double.infinity, 56),
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(25),
-                        bottomLeft: Radius.circular(25),
                         bottomRight: Radius.circular(25),
+                        bottomLeft: Radius.circular(25),
                       ),
                     ),
                   ),
-                  icon: Icon(
+                  icon: const Icon(
                     CupertinoIcons.arrow_right,
                     color: Color(0xFFFE0037),
                   ),
-                  label: Text("Sign In"),
+                  label: const Text("Sign In"),
                 ),
               ),
             ],
@@ -179,56 +171,48 @@ class _SignInFormState extends State<SignInForm> {
         isShowLoading
             ? CustomPositioned(
                 child: RiveAnimation.asset(
-                  "assets/RiveAssets/check.riv",
-                  onInit: (artboard) {
-                    StateMachineController controller =
-                        getRiveController(artboard);
-                    check = controller.findSMI("Check") as SMITrigger;
-                    reset = controller.findSMI("Reset") as SMITrigger;
-                    error = controller.findSMI("Error") as SMITrigger;
-                  },
-                ),
-                size: 100)
-            : SizedBox(),
-        isShowConfetti
-            ? CustomPositioned(
-                child: Transform.scale(
-                  scale: 6,
-                  child: RiveAnimation.asset(
-                    "assets/RiveAssets/confetti.riv",
-                    onInit: (artboard) {
-                      StateMachineController controller =
-                          getRiveController(artboard);
-                      confetti =
-                          controller.findSMI("Trigger explosion") as SMITrigger;
-                    },
-                  ),
+                  'assets/RiveAssets/check.riv',
+                  fit: BoxFit.cover,
+                  onInit: _onCheckRiveInit,
                 ),
               )
-            : SizedBox(),
+            : const SizedBox(),
+        isShowConfetti
+            ? CustomPositioned(
+                scale: 6,
+                child: RiveAnimation.asset(
+                  "assets/RiveAssets/confetti.riv",
+                  onInit: _onConfettiRiveInit,
+                  fit: BoxFit.cover,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }
 }
 
 class CustomPositioned extends StatelessWidget {
-  const CustomPositioned({super.key, required this.child, this.size = 100});
+  const CustomPositioned({super.key, this.scale = 1, required this.child});
 
+  final double scale;
   final Widget child;
-  final double size;
 
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
       child: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           SizedBox(
-            height: size,
-            width: size,
-            child: child,
+            height: 100,
+            width: 100,
+            child: Transform.scale(
+              scale: scale,
+              child: child,
+            ),
           ),
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
         ],
       ),
     );
