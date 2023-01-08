@@ -13,7 +13,8 @@ class EntryPoint extends StatefulWidget {
 }
 
 class _EntryPointState extends State<EntryPoint> {
-  late SMIBool searchTrigger;
+  RiveAsset selectedBottomNav = bottomNavs.first;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,25 +36,42 @@ class _EntryPointState extends State<EntryPoint> {
                   (index) => GestureDetector(
                     onTap: () {
                       bottomNavs[index].input!.change(true);
+                      if (bottomNavs[index] != selectedBottomNav) {
+                        setState(() {
+                          selectedBottomNav = bottomNavs[index];
+                        });
+                      }
                       Future.delayed(Duration(seconds: 1), () {
                         bottomNavs[index].input!.change(false);
                       });
                     },
-                    child: SizedBox(
-                      width: 36,
-                      height: 36,
-                      child: RiveAnimation.asset(
-                        "assets/RiveAssets/icons.riv",
-                        artboard: bottomNavs[index].artboard,
-                        onInit: (artboard) {
-                          StateMachineController controller =
-                              RiveUtils.getRiveController(artboard,
-                                  StateMachineName:
-                                      bottomNavs[index].stateMachineName);
-                          bottomNavs[index].input =
-                              controller.findSMI("active") as SMIBool;
-                        },
-                      ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedBar(
+                            isactive: bottomNavs[index] == selectedBottomNav),
+                        SizedBox(
+                          width: 36,
+                          height: 36,
+                          child: Opacity(
+                            opacity: bottomNavs[index] == selectedBottomNav
+                                ? 1
+                                : 0.5,
+                            child: RiveAnimation.asset(
+                              "assets/RiveAssets/icons.riv",
+                              artboard: bottomNavs[index].artboard,
+                              onInit: (artboard) {
+                                StateMachineController controller =
+                                    RiveUtils.getRiveController(artboard,
+                                        StateMachineName:
+                                            bottomNavs[index].stateMachineName);
+                                bottomNavs[index].input =
+                                    controller.findSMI("active") as SMIBool;
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -61,6 +79,29 @@ class _EntryPointState extends State<EntryPoint> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AnimatedBar extends StatelessWidget {
+  const AnimatedBar({
+    Key? key,
+    required this.isactive,
+  }) : super(key: key);
+
+  final bool isactive;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+      margin: EdgeInsets.only(bottom: 2),
+      height: 5,
+      width: isactive ? 20 : 0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        color: Color(0xFF81B4FF),
       ),
     );
   }
