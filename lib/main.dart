@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rive_animation/entry_point.dart';
 // import 'package:rive_animation/screens/Extra/authentication.dart';
-import 'package:rive_animation/screens/onboding/onboding_screen.dart';
+// import 'package:rive_animation/screens/onboding/onboding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           errorBorder: defaultInputBorder,
         ),
       ),
-      home: OnboardingScreen(),
+      home: EntryPoint(),
     );
   }
 }

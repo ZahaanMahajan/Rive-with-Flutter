@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rive/rive.dart';
+import 'package:rive_animation/entry_point.dart';
+import 'package:rive_animation/utils/rive_utils.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -26,24 +28,21 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger confetti;
 
   void _onCheckRiveInit(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, 'State Machine 1');
-
-    artboard.addController(controller!);
+    StateMachineController controller = RiveUtils.getRiveController(artboard);
     error = controller.findInput<bool>('Error') as SMITrigger;
     success = controller.findInput<bool>('Check') as SMITrigger;
     reset = controller.findInput<bool>('Reset') as SMITrigger;
   }
 
   void _onConfettiRiveInit(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
-    artboard.addController(controller!);
+    StateMachineController? controller = RiveUtils.getRiveController(
+      artboard,
+    );
 
     confetti = controller.findInput<bool>("Trigger explosion") as SMITrigger;
   }
 
-  void singIn(BuildContext context) {
+  void signIn(BuildContext context) {
     // confetti.fire();
     setState(() {
       isShowConfetti = true;
@@ -64,7 +63,14 @@ class _SignInFormState extends State<SignInForm> {
               // Navigate & hide confetti
               Future.delayed(
                 const Duration(seconds: 1),
-                () {},
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EntryPoint(),
+                    ),
+                  );
+                },
               );
             },
           );
@@ -144,7 +150,7 @@ class _SignInFormState extends State<SignInForm> {
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    singIn(context);
+                    signIn(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF77D8E),
