@@ -34,7 +34,9 @@ class CourseCard extends StatelessWidget {
                 Text(
                   course.title,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 8),
