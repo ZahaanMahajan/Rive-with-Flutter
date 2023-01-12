@@ -1,10 +1,11 @@
-# rive_animation
+# Flutter with Rive Animations 
 
 A new Flutter project.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+This app is just for learning purpose to get started with Rive Animations along with flutter.
 
 A few resources to get you started if this is your first Flutter project:
 
