@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:rive_animation/constants.dart';
+import 'package:rive_animation/screens/home/home_screen.dart';
 import 'package:rive_animation/utils/rive_utils.dart';
+import 'components/animated_bar.dart';
+import 'models/rive_assets.dart';
 
 class EntryPoint extends StatefulWidget {
   const EntryPoint({super.key});
@@ -18,6 +21,9 @@ class _EntryPointState extends State<EntryPoint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      body: HomeScreen(),
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -83,49 +89,3 @@ class _EntryPointState extends State<EntryPoint> {
     );
   }
 }
-
-class AnimatedBar extends StatelessWidget {
-  const AnimatedBar({
-    Key? key,
-    required this.isactive,
-  }) : super(key: key);
-
-  final bool isactive;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
-      margin: EdgeInsets.only(bottom: 2),
-      height: 5,
-      width: isactive ? 20 : 0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: Color(0xFF81B4FF),
-      ),
-    );
-  }
-}
-
-class RiveAsset {
-  final String artboard, stateMachineName, title;
-  SMIBool? input;
-
-  RiveAsset(
-    this.artboard,
-    this.stateMachineName,
-    this.title,
-  );
-
-  set setInput(SMIBool status) {
-    input = status;
-  }
-}
-
-List<RiveAsset> bottomNavs = [
-  RiveAsset("CHAT", "CHAT_Interactivity", "Chat"),
-  RiveAsset("SEARCH", "SEARCH_Interactivity", "Search"),
-  RiveAsset("TIMER", "TIMER_Interactivity", "Timer"),
-  RiveAsset("BELL", "BELL_Interactivity", "Notifications"),
-  RiveAsset("USER", "USER_Interactivity", "Profile"),
-];
