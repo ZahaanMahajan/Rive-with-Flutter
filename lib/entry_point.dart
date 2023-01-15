@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:rive_animation/components/side_menu.dart';

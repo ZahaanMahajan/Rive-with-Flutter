@@ -34,4 +34,16 @@ final List<Course> recentCourses = [
     bgColor: const Color(0xFF9CC5FF),
     iconSrc: "assets/icons/code.svg",
   ),
+  Course(title: "State Machine"),
+  Course(
+    title: "Animated Menu",
+    bgColor: const Color(0xFF9CC5FF),
+    iconSrc: "assets/icons/code.svg",
+  ),
+  Course(title: "Flutter with Rive"),
+  Course(
+    title: "Animated Menu",
+    bgColor: const Color(0xFF9CC5FF),
+    iconSrc: "assets/icons/code.svg",
+  ),
 ];
