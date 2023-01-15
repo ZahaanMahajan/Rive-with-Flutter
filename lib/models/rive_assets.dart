@@ -4,11 +4,11 @@ class RiveAsset {
   final String artboard, stateMachineName, title;
   SMIBool? input;
 
-  RiveAsset(
-    this.artboard,
-    this.stateMachineName,
-    this.title,
-  );
+  RiveAsset({
+    required this.artboard,
+    required this.stateMachineName,
+    required this.title,
+  });
 
   set setInput(SMIBool status) {
     input = status;
@@ -16,9 +16,65 @@ class RiveAsset {
 }
 
 List<RiveAsset> bottomNavs = [
-  RiveAsset("CHAT", "CHAT_Interactivity", "Chat"),
-  RiveAsset("SEARCH", "SEARCH_Interactivity", "Search"),
-  RiveAsset("TIMER", "TIMER_Interactivity", "Timer"),
-  RiveAsset("BELL", "BELL_Interactivity", "Notifications"),
-  RiveAsset("USER", "USER_Interactivity", "Profile"),
+  RiveAsset(
+    artboard: "CHAT",
+    stateMachineName: "CHAT_Interactivity",
+    title: "Chat",
+  ),
+  RiveAsset(
+    artboard: "SEARCH",
+    stateMachineName: "SEARCH_Interactivity",
+    title: "Search",
+  ),
+  RiveAsset(
+    artboard: "TIMER",
+    stateMachineName: "TIMER_Interactivity",
+    title: "Timer",
+  ),
+  RiveAsset(
+    artboard: "BELL",
+    stateMachineName: "BELL_Interactivity",
+    title: "Notifications",
+  ),
+  RiveAsset(
+    artboard: "USER",
+    stateMachineName: "USER_Interactivity",
+    title: "Profile",
+  ),
+];
+
+List<RiveAsset> sideMenus = [
+  RiveAsset(
+    artboard: "HOME",
+    stateMachineName: "HOME_interactivity",
+    title: "Home",
+  ),
+  RiveAsset(
+    artboard: "SEARCH",
+    stateMachineName: "SEARCH_Interactivity",
+    title: "Search",
+  ),
+  RiveAsset(
+    artboard: "LIKE/STAR",
+    stateMachineName: "STAR_Interactivity",
+    title: "Favorites",
+  ),
+  RiveAsset(
+    artboard: "CHAT",
+    stateMachineName: "CHAT_Interactivity",
+    title: "Help",
+  ),
+];
+
+List<RiveAsset> sideMenus2 = [
+  RiveAsset(
+    artboard: "TIMER",
+    stateMachineName: "TIMER_Interactivity",
+    title: "History",
+  ),
+  RiveAsset(
+    artboard: "BELL",
+    stateMachineName: "BELL_Interactivity",
+    title: "Notification",
+  ),
 ];

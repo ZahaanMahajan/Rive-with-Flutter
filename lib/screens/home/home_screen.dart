@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(75, 20, 20, 20),
                 child: Text(
                   "Courses",
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
