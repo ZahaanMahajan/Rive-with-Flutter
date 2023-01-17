@@ -3,12 +3,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-import 'package:rive_animation/components/side_menu.dart';
 import 'package:rive_animation/constants.dart';
 import 'package:rive_animation/screens/home/home_screen.dart';
 import 'package:rive_animation/utils/rive_utils.dart';
 import 'components/animated_bar.dart';
 import 'components/menu_button.dart';
+import 'components/side_menu.dart';
 import 'models/rive_assets.dart';
 
 class EntryPoint extends StatefulWidget {
